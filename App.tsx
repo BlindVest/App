@@ -1,21 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react'
+import { View } from 'react-native'
+import axios from 'axios'
+import MapView, { Marker } from 'react-native-maps'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+declare global {
+  interface Window {
+    kakao: any
+    map: any
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  const Data = {
+    id: 0,
+    distance: 0,
+    latitude: 0,
+    longitude: 0
+  }
+  const [data, setData] = useState(Data)
+
+  axios.get('http://18.116.239.41:8080/data', {
+    headers: {
+      'Content-Type': 'text/plain'
+    }
+  })
+    .then((response: any) => {
+      setData(response.data)
+      console.log(response.data)
+    })
+  
+  const [mapRegion, setmapRegion] = useState({
+    latitude: data.latitude,
+    longitude: data.longitude,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
+  })
+
+  return (
+    <View>
+      <MapView
+        style={{ alignSelf: 'stretch', height: '100%' }}
+        initialRegion={mapRegion}
+      >
+        <Marker
+          coordinate={mapRegion}
+        />
+      </MapView>
+    </View>
+  )
+}
