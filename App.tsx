@@ -14,9 +14,10 @@ export default function App() {
   const Data = {
     id: 0,
     distance: 0,
-    latitude: 0,
-    longitude: 0
+    latitude: 37.37631358163734,
+    longitude: 127.1104295264883
   }
+
   const [data, setData] = useState(Data)
 
   axios.get('http://18.116.239.41:8080/data', {
@@ -28,8 +29,8 @@ export default function App() {
       setData(response.data)
       console.log(response.data)
     })
-  
-  const [mapRegion, setmapRegion] = useState({
+
+  const [ mapRegion ] = useState({
     latitude: data.latitude,
     longitude: data.longitude,
     latitudeDelta: 0.0922,
