@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import axios from 'axios'
 import MapView, { Marker } from 'react-native-maps'
+import Notifications from 'expo'
+import Constants from 'expo-constants'
 
 export default function App() {
   const Data = {
