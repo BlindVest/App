@@ -20,8 +20,9 @@ export default class App extends React.Component<{}, any>  {
       longitude: 127.1104295264883
     }
   }
+
   componentDidMount() {
-    axios.get('http://18.116.239.41:8080/data', {
+    axios.get('http://chul0721.iptime.org:25565/data', {
       headers: {
         'Content-Type': 'text/plain'
       }
